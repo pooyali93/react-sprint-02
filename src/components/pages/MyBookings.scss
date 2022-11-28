@@ -1,0 +1,28 @@
+$primary-color: rgb(40, 40, 66);
+$secondary-color:rgb(58, 110, 165);
+$gray-color:rgb(192, 192, 192);
+$light-color:rgb(235, 235, 235);
+$orange-color:rgb(209, 69, 50);
+$black-color:rgb(22, 26, 29);
+
+
+section {
+    margin: 0 auto;
+    width: 100%;
+    
+   .button {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .form-container {
+        display: flex;
+        //justify-content: space-between;
+        padding: 0 40px;
+        background-color:white;
+
+        p {
+            padding: 0;
+        }
+    }
+}

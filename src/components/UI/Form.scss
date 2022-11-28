@@ -1,0 +1,90 @@
+$primary-color: rgb(40, 40, 66);
+$secondary-color:rgb(58, 110, 165);
+$gray-color:rgb(192, 192, 192);
+$light-color:rgb(235, 235, 235);
+$orange-color:rgb(209, 69, 50);
+$black-color:rgb(22, 26, 29);
+
+
+form {
+    width: 75%;
+    padding: 10px 0; 
+    margin: 0 auto;
+  
+    &.BorderedForm {
+      margin: 10px 0;
+      padding: 20px;
+      border: 1px solid $gray-color;
+      border-radius: 5px;
+    }
+  
+    div.FormTray {
+      width: 100%;
+      margin-bottom: 20px;
+  
+  
+    }
+  }
+
+
+div.FormItem {
+    margin-bottom: 20px;
+
+    label.FormLabel {
+        display: block;
+        font-weight: 600;
+    }
+    p.FormAdvice {
+        color: $secondary-color; 
+        font-weight: 400;
+        font-size: 90%;
+        margin: 0;
+    }
+    
+    select,input {
+    width: 100%;
+    padding: 3px;
+    margin: 1px 0;
+    font-size: 100%;
+    border-radius: 0px;
+    border: 1px solid $gray-color;
+    background: White;
+
+    &::placeholder,
+    &:disabled {
+        color: Grey;
+        font-weight: 300;
+    }
+
+    &:hover,
+    &:focus {
+        outline-width: 1px;
+        outline-color: red;
+        outline-style: solid;
+        border-width: 1px;
+        border-style: solid;;
+    }
+    &:hover { 
+        border-color: $orange-color; 
+        outline-color: $gray-color; 
+    }
+    &:focus { 
+        border-color: $secondary-color; 
+        outline-color: $secondary-color; 
+    }
+
+    &[type="number"] { text-align: left; }
+
+    &.FormError {
+        border-color: $secondary-color; 
+        outline-color: $secondary-color; 
+    }
+    }
+
+    p.FormError {
+    color: $orange-color; 
+    font-weight: 400;
+    font-size: 90%;
+    margin: 0;
+    }
+}

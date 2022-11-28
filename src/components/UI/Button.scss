@@ -1,0 +1,38 @@
+
+$primary-color: rgb(40, 40, 66);
+$secondary-color:rgb(58, 110, 165);
+$gray-color:rgb(192, 192, 192);
+$light-color:rgb(235, 235, 235);
+$orange-color:rgb(209, 69, 50);
+$black-color:rgb(22, 26, 29);
+
+
+.btn {
+    display: inline-block;
+    background-color:var($primary-color);
+    color: var($light-color);
+    border: none;
+    padding: 10px 40px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: inherit;
+  
+
+  .btn:focus {
+    outline: none;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+}
+
+
