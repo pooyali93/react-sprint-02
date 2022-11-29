@@ -23,14 +23,14 @@ export default function MyBookings() {
             : setLoadingMessage(response.message)
 
     }
-
+    useEffect(() => { apiCall(endpoint) }, [endpoint]);
 
     const handleClick = () => {
         setShowModalForm(!showModalForm);
     };
 
 
-    useEffect(() => { apiCall(endpoint) }, [endpoint]);
+   
 
     // View ---------
     return (

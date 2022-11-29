@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import API from "../api/API";
 import FormItem from '../UI/Form';
+
 
 const emptyBooking = {
     VehicleId:5,
     CustomerId: 66, 
-    SalesId: 2,
+    SalesId: 0,
     DateBooked:"2022-11-27T10:10:00",
 }
 
@@ -15,7 +17,7 @@ export default function BookingForm({initialBooking=emptyBooking}){
     const isValid = { 
       VehicleId: (vid) =>  /^\d+$/.test(vid),
       CustomerId: (cid) => /^\d+$/.test(cid),
-      SalesId: (sid) => (sid > 0 ) && (sid < 5 ),
+      SalesId: (sid) => (sid > 1 ) && (sid < 5 ),
 
     }
 
@@ -29,6 +31,9 @@ export default function BookingForm({initialBooking=emptyBooking}){
     const [errors, setErrors] = useState(
       Object.keys(initialBooking).reduce((accum, key) => ({...accum, [key]: null}),{})
     );
+
+    const [salePerson, setSalesPerson] = useState(null);
+    const [loadSalesPersonMessage, setLoadSalesPersonMessage] = useState('Loading Bookings...');
       
     
     // Handler ---------  (56:00 )
@@ -36,8 +41,17 @@ export default function BookingForm({initialBooking=emptyBooking}){
       const { name, value } = event.target;
       const newValue =  (name === 'VehicleId') || (name === 'CustomerId') || (name === 'SalesId') ? value : value ;
       setBooking({ ...booking, [name]: newValue});
-      setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]});
+      setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]}); //118 :
     };
+
+    const getSales = async () => {
+      const response = await API.get('/bookings/sales');
+      response.isSuccess
+          ? setSalesPerson(response.result)
+          : setLoadSalesPersonMessage(response.message)
+
+  }
+  useEffect(() => { getSales() }, []);
 
 
 
@@ -71,24 +85,31 @@ export default function BookingForm({initialBooking=emptyBooking}){
             onChange={handleChange}
         />
       </FormItem>
-
       <FormItem 
         label ="Sales Id"
         htmlFor="SalesId"
         advice="Please Enter Sales Id"
         error={errors.SalesId}
         >
-          <select 
-              name="SalesId"
-              value={booking.SalesId}
-              onChange={handleChange}
-              >
-                <option value="0" disabled>Select Sales Id</option>
-                {
-                  [1,2,3,4].map((saleNo) => <option key={saleNo}>{saleNo}
-                  </option>)
-                }
-          </select>
+        {
+          !salePerson
+            ? <p>{loadSalesPersonMessage}</p>
+            : salePerson.length === 0
+              ? <p>No salesperson found</p>
+              : <select 
+                  name="SalesId"
+                  value={booking.SalesId}
+                  onChange={handleChange}
+                  >
+                  
+                    <option value="0" disabled>None Selected</option>
+                    
+                    {
+                      salePerson.map((sale) => <option key={sale.SalesId} value={sale.SalesId}>{sale.SalesId}
+                      </option>)
+                    }
+                </select>
+          }
         </FormItem>
 
         <FormItem 
