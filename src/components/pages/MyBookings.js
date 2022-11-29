@@ -8,26 +8,33 @@ import BookingForm from "../entities/BookingForm";
 export default function MyBookings() {
     // Initialisation ---------
     const loggedinUserID = 3;
-    const endpoint = `/bookings/sales/${loggedinUserID}`;
+   // const endpoint
+    const endpoint = '/bookings'
     // States ---------
     const [bookings, setBookings] = useState(null);
     const [loadingMessage, setLoadingMessage] = useState('Loading Bookings...');
-    const [showModalForm, setShowModalForm] = useState(false);
+    const [showNewBookingForm, setShowNewBookingForm] = useState(false);
 
     // Context ---------
     // Methods ---------
-    const apiCall = async (endpoint) => {
-        const response = await API.get(endpoint);
+    const getBookings = async () => {
+        const response = await API.get(`/bookings`);
         response.isSuccess
             ? setBookings(response.result)
             : setLoadingMessage(response.message)
 
     }
-    useEffect(() => { apiCall(endpoint) }, [endpoint]);
+    useEffect(() => { getBookings() }, []);
 
-    const handleClick = () => {
-        setShowModalForm(!showModalForm);
-    };
+    const handleAdd = () => setShowNewBookingForm(true);
+    const handleDismissAdd = () => setShowNewBookingForm(false);
+
+    const handleSubmit = async(booking) => {
+        const response = await API.post(endpoint, booking);
+        return response.isSuccess
+            ? getBookings()  || true
+            : false;
+    }
 
 
    
@@ -49,12 +56,12 @@ export default function MyBookings() {
 
 
             <div  className="button">
-                <Button color='rgb(58, 110, 165)' iconName={<FaPlus/>} text='Add' onClick={handleClick}></Button>
+                <Button color='rgb(58, 110, 165)' iconName={<FaPlus/>} text='Add' onClick={handleAdd} onSubmit={handleSubmit}></Button>
             </div>
             <div className="form-container">
-                
-                     <BookingForm/> 
-                
+                {
+                    showNewBookingForm && <BookingForm onDismiss={handleDismissAdd}/> 
+                }
             </div>
 
         </section>

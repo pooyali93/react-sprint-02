@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import API from "../api/API";
 import FormItem from '../UI/Form';
-
+import Button from "../UI/Button";
 
 const emptyBooking = {
-    VehicleId:5,
-    CustomerId: 66, 
-    SalesId: 0,
+    VehicleId:1,
+    CustomerId: 1, 
+    SalesId: 1,
     DateBooked:"2022-11-27T10:10:00",
 }
 
-export default function BookingForm({initialBooking=emptyBooking}){
+export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBooking}){
     // Initialisation ---------
 
     // 109
     const isValid = { 
       VehicleId: (vid) =>  /^\d+$/.test(vid),
       CustomerId: (cid) => /^\d+$/.test(cid),
-      SalesId: (sid) => (sid > 1 ) && (sid < 5 ),
+      SalesId: (sid) => (sid > 0 ) && (sid < 5 ),
 
     }
 
     const errorMessage = {
       VehicleId: "Vehicle id must be a number",
       CustomerId: "Customer id must be a number",
-      SalesId: "Sales Id in valid"
+      SalesId: "Please select a salesperson"
     }
     // States ---------
     const [booking, setBooking] = useState(initialBooking);
@@ -32,9 +32,32 @@ export default function BookingForm({initialBooking=emptyBooking}){
       Object.keys(initialBooking).reduce((accum, key) => ({...accum, [key]: null}),{})
     );
 
-    const [salePerson, setSalesPerson] = useState(null);
-    const [loadSalesPersonMessage, setLoadSalesPersonMessage] = useState('Loading Bookings...');
+  //   const [vehicles, setVehicles] = useState(null);
+  //   const [loadVehicleMessage, setLoadVehicleMessage] = useState('Loading Vehicles...');
+
+  //   const getVehicles = async () => {
+  //     const response = await API.get('/vehicles');
+  //     response.isSuccess
+  //         ? setVehicles(response.result)
+  //         : setLoadVehicleMessage(response.message)
+
+  // }
+  // useEffect(() => { getVehicles() }, []);
+  
+
+  // const [salesperson, setSalesperson] = useState(null);
+  //   const [loadSaleMessage, setLoadSaleMessage] = useState('Loading Salesperson...');
+
+  //   const getSalesperson = async () => {
+  //     const response = await API.get('/users/sales/userUserTypeId');
+  //     response.isSuccess
+  //         ? setSalesperson(response.result)
+  //         : setLoadSaleMessage(response.message)
+
+  // }
+  // useEffect(() => { getSalesperson() }, []);
       
+    
     
     // Handler ---------  (56:00 )
     const handleChange = (event) => {
@@ -44,16 +67,27 @@ export default function BookingForm({initialBooking=emptyBooking}){
       setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]}); //118 :
     };
 
-    const getSales = async () => {
-      const response = await API.get('/bookings/sales');
-      response.isSuccess
-          ? setSalesPerson(response.result)
-          : setLoadSalesPersonMessage(response.message)
+    const isValidBooking = (booking) => {
+      let isBookingValid = true;
+      Object.keys(booking).forEach((key) => {
+        if(isValid[key](booking[key])) {
+          errors[key] = null;
 
-  }
-  useEffect(() => { getSales() }, []);
+        } else {
+          errors[key] = errorMessage[key];
+          isBookingValid = false;
+        }
+      });
+      return isBookingValid;
+    }
 
+    const handleCancel = () => onDismiss();
 
+    const handleSubmit = (e) => {
+//      e.preventDefault();
+      isValidBooking(booking) && onSubmit(booking) && onDismiss(); 
+      setErrors({...errors});
+    }
 
     // View ---------
   return (
@@ -69,6 +103,7 @@ export default function BookingForm({initialBooking=emptyBooking}){
             name="VehicleId"
             value={booking.VehicleId}
             onChange={handleChange}
+           
         />
       </FormItem>
 
@@ -85,34 +120,38 @@ export default function BookingForm({initialBooking=emptyBooking}){
             onChange={handleChange}
         />
       </FormItem>
+      <p>{JSON.stringify(booking.SalesId)}</p>
       <FormItem 
         label ="Sales Id"
         htmlFor="SalesId"
         advice="Please Enter Sales Id"
         error={errors.SalesId}
         >
-        {
-          !salePerson
-            ? <p>{loadSalesPersonMessage}</p>
-            : salePerson.length === 0
+         {/* {
+          !salesperson
+            ?<p>{loadSaleMessage}</p>
+            : salesperson.length ===0
               ? <p>No salesperson found</p>
-              : <select 
-                  name="SalesId"
-                  value={booking.SalesId}
-                  onChange={handleChange}
-                  >
-                  
-                    <option value="0" disabled>None Selected</option>
-                    
-                    {
-                      salePerson.map((sale) => <option key={sale.SalesId} value={sale.SalesId}>{sale.SalesId}
-                      </option>)
-                    }
-                </select>
-          }
+              : <select
+                name="SalesId"
+                value={booking.SalesId}
+                onChange={handleChange}
+              >
+                <option value="0" disabled>None Selected</option>
+                {
+                  salesperson.map((sale) => <option key={sale.SalesId} value={sale.UserId}>{sale.userFirstName} {sale.userSurname}</option>)
+                }
+              </select>
+        } */}
+        <input 
+            type="text" 
+            name="SalesId"
+            value={booking.SalesId}
+            onChange={handleChange}
+        />
         </FormItem>
 
-        <FormItem 
+        {/* <FormItem 
         label ="Date of Booking"
         htmlFor="DateBooked"
         placeholder="Please Enter Date of booking"
@@ -124,7 +163,12 @@ export default function BookingForm({initialBooking=emptyBooking}){
             value={booking.DateBooked}
             onChange={handleChange}
         />
-      </FormItem>
+      </FormItem> */}
+
+      <div  className="button">
+          <Button color='rgb(58, 110, 165)' text='Submit' onClick={handleSubmit}></Button>
+          <Button color='rgb(209, 69, 50)' text='Cancel' onClick={handleCancel}></Button>
+      </div>
     </form>
   )
 }
