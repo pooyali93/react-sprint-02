@@ -1,0 +1,37 @@
+.panel {
+  width: 500px;
+}
+
+.item {
+  background:rgb(90, 133, 155);
+  margin-bottom: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.title {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+}
+
+.title h2 {
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  color: burlywood;
+  max-height:0 ;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.content.show {
+  height: auto;
+  max-height:9999px ;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}

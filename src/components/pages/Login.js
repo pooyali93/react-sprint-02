@@ -1,3 +1,5 @@
+import Panel from "../UI/Panel";
+
    export default function Login() {
         // Initialisation ---------
         // States ---------
@@ -8,6 +10,9 @@
     
             <section>
                 <h1>Login</h1>
+
+
+                <Panel></Panel>
             </section>
         )
     

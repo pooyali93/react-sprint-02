@@ -1,0 +1,21 @@
+<p>{JSON.stringify(salePerson)}</p>
+
+{
+          !salePerson
+            ? <p>{loadSalesPersonMessage}</p>
+            : salePerson.length === 0
+              ? <p>No salesperson found</p>
+              : <select 
+                  name="SalesId"
+                  value={booking.SalesId}
+                  onChange={handleChange}
+                  >
+                  
+                    <option value="0" disabled>None Selected</option>
+                    
+                    {
+                      salePerson.map((sale) => <option key={sale.SalesId} value={sale.SalesId}>{sale.SalesId}
+                      </option>)
+                    }
+                </select>
+          }
