@@ -4,6 +4,8 @@ import { FaPlus } from "react-icons/fa";
 import Button from "../UI/Button";
 import './MyBookings.scss'
 import BookingForm from "../entities/BookingForm";
+import Panel from "../UI/Panel";
+
 
 export default function MyBookings() {
     // Initialisation ---------
@@ -50,10 +52,11 @@ export default function MyBookings() {
                     : bookings.length === 0
                         ? <p>You have no booking</p>
                         : bookings.map((booking) =>
+                        <Panel>
                             <p key={booking.BookingID}> {booking.VehicleMake} {booking.VehicleModel} {booking.VehicleYear} </p>
-                        )
+                            </Panel>
+                            )  
             }
-
 
             <div  className="button">
                 <Button color='rgb(58, 110, 165)' iconName={<FaPlus/>} text='Add' onClick={handleAdd} onSubmit={handleSubmit}></Button>

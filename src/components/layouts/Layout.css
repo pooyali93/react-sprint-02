@@ -16,7 +16,7 @@ div#root {
 div#root div.container {
     background: whitesmoke;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
 }
