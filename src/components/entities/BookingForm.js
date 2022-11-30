@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import API from "../api/API";
+import React, { useState } from 'react';
+// import API from "../api/API";
 import FormItem from '../UI/Form';
 import Button from "../UI/Button";
 
 const emptyBooking = {
     VehicleId:1,
     CustomerId: 1, 
-    SalesId: 1,
-    DateBooked:"2022-11-27T10:10:00",
+    SalesId: 1
 }
 
 export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBooking}){
@@ -18,13 +17,15 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
       VehicleId: (vid) =>  /^\d+$/.test(vid),
       CustomerId: (cid) => /^\d+$/.test(cid),
       SalesId: (sid) => (sid > 0 ) && (sid < 5 ),
+      // DateBooked: (date) => /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/.test(date)
 
     }
 
     const errorMessage = {
       VehicleId: "Vehicle id must be a number",
       CustomerId: "Customer id must be a number",
-      SalesId: "Please select a salesperson"
+      SalesId: "Please select a salesperson",
+      // DateBooked:"Please enter the date"
     }
     // States ---------
     const [booking, setBooking] = useState(initialBooking);
@@ -62,7 +63,9 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
     // Handler ---------  (56:00 )
     const handleChange = (event) => {
       const { name, value } = event.target;
-      const newValue =  (name === 'VehicleId') || (name === 'CustomerId') || (name === 'SalesId') ? value : value ;
+      console.log(typeof(value), "Give us our value", name);
+      const newValue =  (name === 'VehicleId') || (name === 'CustomerId') || (name === 'SalesId') ? parseInt(value) : value ;
+      console.log(newValue, "old value", value)
       setBooking({ ...booking, [name]: newValue});
       setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]}); //118 :
     };
@@ -84,7 +87,8 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
     const handleCancel = () => onDismiss();
 
     const handleSubmit = (e) => {
-//      e.preventDefault();
+     e.preventDefault();
+     console.log(`handle LOCAL submit${JSON.stringify(booking)}`)
       isValidBooking(booking) && onSubmit(booking) && onDismiss(); 
       setErrors({...errors});
     }
@@ -154,11 +158,11 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
         {/* <FormItem 
         label ="Date of Booking"
         htmlFor="DateBooked"
-        placeholder="Please Enter Date of booking"
-        error="Wrong Date"
+        advice="Please Enter Date of booking"
+        error={errors.DateBooked}
       >
         <input 
-            type="datetime-local"
+            type="datetime"
             name="DateBooked"
             value={booking.DateBooked}
             onChange={handleChange}

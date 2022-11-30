@@ -5,11 +5,12 @@ import Button from "../UI/Button";
 import './MyBookings.scss'
 import BookingForm from "../entities/BookingForm";
 import Panel from "../UI/Panel";
+//import Panel from "../UI/Panel";
 
 
 export default function MyBookings() {
     // Initialisation ---------
-    const loggedinUserID = 3;
+    // const loggedinUserID = 3;
    // const endpoint
     const endpoint = '/bookings'
     // States ---------
@@ -24,26 +25,21 @@ export default function MyBookings() {
         response.isSuccess
             ? setBookings(response.result)
             : setLoadingMessage(response.message)
-
     }
     useEffect(() => { getBookings() }, []);
 
-    const handleAdd = () => setShowNewBookingForm(true);
+    const handleAdd = () => setShowNewBookingForm(!showNewBookingForm);
     const handleDismissAdd = () => setShowNewBookingForm(false);
 
     const handleSubmit = async(booking) => {
+        console.log(`handle submit${JSON.stringify(booking)}`);
         const response = await API.post(endpoint, booking);
         return response.isSuccess
             ? getBookings()  || true
             : false;
     }
-
-
-   
-
     // View ---------
     return (
-
         <section>
             <h1>My Bookings</h1>
             {
@@ -52,22 +48,22 @@ export default function MyBookings() {
                     : bookings.length === 0
                         ? <p>You have no booking</p>
                         : bookings.map((booking) =>
-                        <Panel>
-                            <p key={booking.BookingID}> {booking.VehicleMake} {booking.VehicleModel} {booking.VehicleYear} </p>
+                            <Panel 
+                                key={booking.BookingId} 
+                                title={`${booking.BookingId} ${booking.VehicleMake} ${booking.VehicleModel} ${booking.VehicleYear}`} 
+                            >
+                                {booking.Customer}
                             </Panel>
                             )  
             }
-
             <div  className="button">
-                <Button color='rgb(58, 110, 165)' iconName={<FaPlus/>} text='Add' onClick={handleAdd} onSubmit={handleSubmit}></Button>
+                <Button color='rgb(58, 110, 165)' iconName={<FaPlus/>} text='Add' onClick={handleAdd} ></Button>
             </div>
             <div className="form-container">
                 {
-                    showNewBookingForm && <BookingForm onDismiss={handleDismissAdd}/> 
+                    showNewBookingForm && <BookingForm onDismiss={handleDismissAdd} onSubmit={handleSubmit}/> 
                 }
             </div>
-
         </section>
     )
-
 }
