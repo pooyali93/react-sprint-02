@@ -1,14 +1,14 @@
 $primary-color: rgb(40, 40, 66);
 $secondary-color:rgb(58, 110, 165);
-$gray-color:rgb(192, 192, 192);
+$gray-color:rgb(159, 159, 159);
 $light-color:rgb(235, 235, 235);
 $orange-color:rgb(209, 69, 50);
 $black-color:rgb(22, 26, 29);
+$border-color:rgb(208, 215, 222);
 
 
 section {
-    margin: 0 auto;
-    width: 100%;
+
     
    .button {
         display:flex;
@@ -23,6 +23,14 @@ section {
 
         p {
             padding: 0;
+        }
+    }
+    .card {
+        position:absolute;
+
+        .name {
+            width: 100%;
+            margin-bottom: 18px;
         }
     }
 }

@@ -1,36 +1,29 @@
 import React from "react";
 import { useState } from "react";
 import './Panel.css';
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
-export default function Panel({children, title, opacity, isOpen= false}) {
+export default function Panel({children, title, opacity}) {
  // Initialisation ---------
- const [ isCollapsed, setIsCollapsed] = useState(isOpen);
+ const [ isCollapsed, setIsCollapsed] = useState(false);
     // States ---------
     // Context ---------
     // Methods ---------
-    const toggle = (e) => {
-        if(isCollapsed === e) {
-            return setIsCollapsed(!isOpen)
-        }
-        setIsCollapsed(e);
-    }
+
+    const collapseCard = () => setIsCollapsed(!isCollapsed)
     // View ---------
     return(
-        <div className="container">
             <div className="panel">
                 <div className="item">
-                    <div className="title" onClick={() => toggle()}>
+                    <div className="title" onClick={collapseCard}>
                         <h2>{title}</h2>
-                        <span>{isCollapsed ? '-' : '+'} </span>
+                        <span>{isCollapsed ? <FaAngleUp/> : <FaAngleDown/>} </span>
                     </div>
-                    <div className="content">
-                        {children}
-                    </div>
+                                       
                 </div>
+                {
+                    isCollapsed && <div className="content">{children} </div>
+                }
             </div>
-            {
-                isCollapsed && <main> {children} </main>
-            }
-        </div>
     );
 }

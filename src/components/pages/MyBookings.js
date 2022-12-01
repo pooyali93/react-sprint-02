@@ -32,7 +32,6 @@ export default function MyBookings() {
     const handleDismissAdd = () => setShowNewBookingForm(false);
 
     const handleSubmit = async(booking) => {
-        console.log(`handle submit${JSON.stringify(booking)}`);
         const response = await API.post(endpoint, booking);
         return response.isSuccess
             ? getBookings()  || true
@@ -52,7 +51,17 @@ export default function MyBookings() {
                                 key={booking.BookingId} 
                                 title={`${booking.BookingId} ${booking.VehicleMake} ${booking.VehicleModel} ${booking.VehicleYear}`} 
                             >
-                                {booking.Customer}
+                            <div className="card">
+                               <div className="name">
+                                Customer Name: {booking.Customer}
+                               </div>
+                               <div className="name">
+                               Saleperson: {booking.Salesperson}
+                               </div>
+                               <div className="name">
+                                Date: {booking.DateBooked}
+                                </div>
+                            </div>
                             </Panel>
                             )  
             }

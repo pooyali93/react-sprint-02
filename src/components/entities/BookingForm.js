@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-// import API from "../api/API";
+import React, { useState, useEffect } from 'react';
+ import API from "../api/API";
 import FormItem from '../UI/Form';
 import Button from "../UI/Button";
 
 const emptyBooking = {
     VehicleId:1,
     CustomerId: 1, 
-    SalesId: 1
+    SalesId: 1,
 }
 
 export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBooking}){
@@ -33,30 +33,42 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
       Object.keys(initialBooking).reduce((accum, key) => ({...accum, [key]: null}),{})
     );
 
-  //   const [vehicles, setVehicles] = useState(null);
-  //   const [loadVehicleMessage, setLoadVehicleMessage] = useState('Loading Vehicles...');
+   const [vehicles, setVehicles] = useState(null);
+   const [loadVehicleMessage, setLoadVehicleMessage] = useState('Loading Vehicles...');
+   const getVehicles = async () => {
+     const response = await API.get('/vehicles');
+     response.isSuccess
+         ? setVehicles(response.result)
+          : setLoadVehicleMessage(response.message)
 
-  //   const getVehicles = async () => {
-  //     const response = await API.get('/vehicles');
-  //     response.isSuccess
-  //         ? setVehicles(response.result)
-  //         : setLoadVehicleMessage(response.message)
+   }
+   useEffect(() => { getVehicles() }, []);
 
-  // }
-  // useEffect(() => { getVehicles() }, []);
+   const [customers, setCustomers] = useState(null);
+   const [loadCustomerMessage, setLoadCustomerMessage] = useState('Loading customers...');
+   const getCustomers = async () => {
+     const response = await API.get('/users/customers/userUserTypeId');
+     response.isSuccess
+         ? setCustomers(response.result)
+          : setLoadCustomerMessage(response.message)
+
+   }
+   useEffect(() => { getCustomers() }, []);  
+
+   
   
 
-  // const [salesperson, setSalesperson] = useState(null);
-  //   const [loadSaleMessage, setLoadSaleMessage] = useState('Loading Salesperson...');
+   const [salesperson, setSalesperson] = useState(null);
+   const [loadSaleMessage, setLoadSaleMessage] = useState('Loading Salesperson...');
 
-  //   const getSalesperson = async () => {
-  //     const response = await API.get('/users/sales/userUserTypeId');
-  //     response.isSuccess
-  //         ? setSalesperson(response.result)
-  //         : setLoadSaleMessage(response.message)
+  const getSalesperson = async () => {
+    const response = await API.get('/users/sales/userUserTypeId');
+    response.isSuccess
+        ? setSalesperson(response.result)
+        : setLoadSaleMessage(response.message)
 
-  // }
-  // useEffect(() => { getSalesperson() }, []);
+   }
+   useEffect(() => { getSalesperson() }, []);
       
     
     
@@ -64,7 +76,7 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
     const handleChange = (event) => {
       const { name, value } = event.target;
       console.log(typeof(value), "Give us our value", name);
-      const newValue =  (name === 'VehicleId') || (name === 'CustomerId') || (name === 'SalesId') ? parseInt(value) : value ;
+      const newValue = value ;
       console.log(newValue, "old value", value)
       setBooking({ ...booking, [name]: newValue});
       setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]}); //118 :
@@ -97,41 +109,58 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
   return (
     <form className='BorderedForm'>
       <FormItem 
-        label ="Vehicle Id"
+        label ="Vehicle"
         htmlFor="VehicleId"
         advice="Please Enter Vehicle Id"
         error={errors.VehicleId}
       >
-        <input 
-            type="text" 
-            name="VehicleId"
-            value={booking.VehicleId}
-            onChange={handleChange}
-           
-        />
+        {
+          !vehicles
+            ?<p>{loadVehicleMessage}</p>
+            : vehicles.length ===0
+              ? <p>No Vehicles found</p>
+              : <select
+                name="VehicleId"
+                value={booking.VehicleId}
+                onChange={handleChange}
+                >
+                <option value="0" disabled>None Selected</option>
+                {
+                  vehicles.map((vehicle) => <option key={vehicle.VehicleId} value={vehicle.VehicleId}>{vehicle.VehicleMake} {vehicle.VehicleModel} - {vehicle.VehicleYear} £{vehicle.VehiclePrice}</option>)
+                }
+              </select>
+        }
       </FormItem>
-
       <FormItem 
-        label ="Customer Id"
+        label ="Customer"
         htmlFor="CustomerId"
         advice="Please Enter Customer Id"
         error={errors.CustomerId}
       >
-        <input 
-            type="text" 
-            name="CustomerId"
-            value={booking.CustomerId}
-            onChange={handleChange}
-        />
+        {
+          !customers
+            ?<p>{loadCustomerMessage}</p>
+            : customers.length ===0
+              ? <p>No customers found</p>
+              : <select
+                name="CustomerId"
+                value={booking.CustomerId}
+                onChange={handleChange}
+                >
+                <option value="0" disabled>None Selected</option>
+                {
+                  customers.map((customer) => <option key={customer.CustomerId} value={customer.UserId}>{customer.userFirstName} {customer.userSurname}</option>)
+                }
+              </select>
+        }
       </FormItem>
-      <p>{JSON.stringify(booking.SalesId)}</p>
       <FormItem 
-        label ="Sales Id"
+        label ="Saleperson"
         htmlFor="SalesId"
         advice="Please Enter Sales Id"
         error={errors.SalesId}
         >
-         {/* {
+         {
           !salesperson
             ?<p>{loadSaleMessage}</p>
             : salesperson.length ===0
@@ -146,13 +175,7 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
                   salesperson.map((sale) => <option key={sale.SalesId} value={sale.UserId}>{sale.userFirstName} {sale.userSurname}</option>)
                 }
               </select>
-        } */}
-        <input 
-            type="text" 
-            name="SalesId"
-            value={booking.SalesId}
-            onChange={handleChange}
-        />
+        }
         </FormItem>
 
         {/* <FormItem 

@@ -1,12 +1,14 @@
 .panel {
-  width: 500px;
+  padding: 0 10px;
 }
 
 .item {
-  background:rgb(90, 133, 155);
+  background: #FFF;
   margin-bottom: 5px;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border: 1px solid #d0d7de;
 }
 
 .title {
@@ -21,17 +23,24 @@
 .title h2 {
   padding: 0;
   margin: 0;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .content {
-  color: burlywood;
-  max-height:0 ;
+  color: black;
+  height: 100px;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  border: 1px solid #d0d7de;
+  background: #fff;
+  padding: 10px 20px;
+  margin: -6px 0 10px 0px;
 }
 
 .content.show {
   height: auto;
+  background: red;
   max-height:9999px ;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
 }

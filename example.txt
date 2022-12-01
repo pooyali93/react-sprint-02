@@ -19,3 +19,7 @@
                     }
                 </select>
           }
+
+
+
+        const newValue =  (name === 'VehicleId') || (name === 'CustomerId') || (name === 'SalesId') ? parseInt(value) : value ;
