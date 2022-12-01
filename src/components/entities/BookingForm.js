@@ -72,13 +72,14 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
       
     
     
-    // Handler ---------  (56:00 )
+    // Handler ---------  
     const handleChange = (event) => {
       const { name, value } = event.target;
-      console.log(typeof(value), "Give us our value", name);
       const newValue = value ;
-      console.log(newValue, "old value", value)
       setBooking({ ...booking, [name]: newValue});
+
+
+
       setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]}); //118 :
     };
 
@@ -100,7 +101,6 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
 
     const handleSubmit = (e) => {
      e.preventDefault();
-     console.log(`handle LOCAL submit${JSON.stringify(booking)}`)
       isValidBooking(booking) && onSubmit(booking) && onDismiss(); 
       setErrors({...errors});
     }
@@ -108,6 +108,7 @@ export default function BookingForm({onDismiss,onSubmit, initialBooking=emptyBoo
     // View ---------
   return (
     <form className='BorderedForm'>
+
       <FormItem 
         label ="Vehicle"
         htmlFor="VehicleId"

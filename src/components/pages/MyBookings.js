@@ -5,7 +5,8 @@ import Button from "../UI/Button";
 import './MyBookings.scss'
 import BookingForm from "../entities/BookingForm";
 import Panel from "../UI/Panel";
-//import Panel from "../UI/Panel";
+
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
 
 
 export default function MyBookings() {
@@ -31,12 +32,19 @@ export default function MyBookings() {
     const handleAdd = () => setShowNewBookingForm(!showNewBookingForm);
     const handleDismissAdd = () => setShowNewBookingForm(false);
 
+
     const handleSubmit = async(booking) => {
         const response = await API.post(endpoint, booking);
         return response.isSuccess
             ? getBookings()  || true
             : false;
     }
+
+
+
+    const shortTime = new Intl.DateTimeFormat("en", {
+        timeStyle: "short"
+      });
     // View ---------
     return (
         <section>
@@ -49,17 +57,18 @@ export default function MyBookings() {
                         : bookings.map((booking) =>
                             <Panel 
                                 key={booking.BookingId} 
-                                title={`${booking.BookingId} ${booking.VehicleMake} ${booking.VehicleModel} ${booking.VehicleYear}`} 
+                                title={`${(new Date()).toLocaleDateString()}`} 
                             >
                             <div className="card">
                                <div className="name">
                                 Customer Name: {booking.Customer}
                                </div>
+                               
                                <div className="name">
                                Saleperson: {booking.Salesperson}
                                </div>
                                <div className="name">
-                                Date: {booking.DateBooked}
+                                Vehicle: {booking.VehicleMake} {booking.VehicleModel} {booking.VehicleYear} £{booking.VehiclePrice}
                                 </div>
                             </div>
                             </Panel>
