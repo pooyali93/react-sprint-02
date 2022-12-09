@@ -5,62 +5,39 @@ const emptyBooking = {
     VehicleId:1,
     CustomerId: 1, 
     SalesId: 1,
+    DateBooked:"2022-10-15 20:00:00"
 }
 
-export default function BookingForm({onCancel, onSubmit, initialBooking=emptyBooking}){
+export default function BookingForm({onSubmit,onCancel, initialBooking=emptyBooking}){
     // Initialisation ---------
-
-    // 
     const validation = {
        isValid: { 
         VehicleId: (vid) =>  /^\d+$/.test(vid),
         CustomerId: (cid) => /^\d+$/.test(cid),
         SalesId: (sid) => (sid > 0 ) && (sid < 5 ),
-        // DateBooked: (date) => /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/.test(date)
+        DateBooked: (date) => /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/.test(date)
 
       },
-
       errorMessage: {
         VehicleId: "Vehicle id must be a number",
         CustomerId: "Customer id must be a number",
         SalesId: "Please select a salesperson",
-        // DateBooked:"Please enter the date"
+       DateBooked:"Please enter the date"
       }
     }
     // State  ---------
-    const [booking, errors, setErrors, handleChange] = Form.useForm(initialBooking, validation);
+    
+    const [booking, errors, handleChange, handleSubmit] = Form.useForm(initialBooking, validation, onSubmit,onCancel);
+
+
     const [vehicles, , loadVehicleMessage, ] = useLoad('/vehicles');
     const [customers, , loadCustomerMessage, ] = useLoad('/users/customers/userUserTypeId');
     const [salesperson, , loadSaleMessage, ] = useLoad('/users/sales/userUserTypeId');
  
-    
     // Handler ---------  
-  
-    const isValidBooking = (booking) => {
-      let isRecordValid = true;
-      Object.keys(booking).forEach((key) => {
-        if(validation.isValid[key](booking[key])) {
-          errors[key] = null;
-
-        } else {
-          errors[key] = validation.errorMessage[key];
-          isRecordValid = false;
-        }
-      });
-      return isRecordValid;
-    }
-
-    const handleCancel = () => onCancel();
-    const handleSubmit = (e) => {
-     e.preventDefault();
-      isValidBooking(booking) && onSubmit(booking) && onCancel(); 
-      setErrors({...errors});
-    }
-
     // View ---------
   return (
-    <Form onSubmit={handleSubmit} onCancel={handleCancel}>
-
+    <Form onSubmit={handleSubmit} onCancel={onCancel}>
       <Form.Item 
         label ="Vehicle"
         htmlFor="VehicleId"
@@ -125,17 +102,16 @@ export default function BookingForm({onCancel, onSubmit, initialBooking=emptyBoo
               >
                 <option value="0" disabled>None Selected</option>
                 {
-                  salesperson.map((sale) => <option key={sale.SalesId} value={sale.UserId}>{sale.userFirstName} {sale.userSurname}</option>)
+                   salesperson.map((sale) => <option key={sale.SalesId} value={sale.UserId}>{sale.userFirstName} {sale.userSurname}</option>)
                 }
               </select>
         }
       </Form.Item>
 
-        {/* <FormItem 
+      <Form.Item
         label ="Date of Booking"
         htmlFor="DateBooked"
         advice="Please Enter Date of booking"
-        error={errors.DateBooked}
       >
         <input 
             type="datetime"
@@ -143,7 +119,7 @@ export default function BookingForm({onCancel, onSubmit, initialBooking=emptyBoo
             value={booking.DateBooked}
             onChange={handleChange}
         />
-      </FormItem> */}
+      </Form.Item>
 
       
     </Form>

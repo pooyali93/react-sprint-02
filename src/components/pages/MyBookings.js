@@ -18,14 +18,14 @@ export default function MyBookings() {
 
     // State --------
     const [bookings, , loadingMessage, loadBookings] = useLoad(endpoint)
-    const [showNewBookingForm, setShowNewBookingForm] = useState(false);
+    const [showAddBookingForm, setShowAddBookingForm] = useState(false);
     
     // Context ---------
     // Methods ---------
-    const handleAdd = () => setShowNewBookingForm(!showNewBookingForm);
-    const handleDismissAdd = () => setShowNewBookingForm(false);
+    const toggleAddForm = () => setShowAddBookingForm(!showAddBookingForm);
+    const cancelAddForm = () => setShowAddBookingForm(false);
 
-    const handleSubmit = async(booking) => {
+    const handleAddSubmit = async(booking) => {
         const response = await API.post(endpoint, booking);
         return response.isSuccess
             ? loadBookings(endpoint)  || true
@@ -47,7 +47,7 @@ export default function MyBookings() {
                         : bookings.map((booking) =>
                             <Panel 
                                 key={booking.BookingId} 
-                                title={`${booking.BookingId} ${(new Date()).toLocaleDateString()}`} 
+                                title={`${booking.BookingId} ${(new Date(booking.DateBooked)).toLocaleDateString()} ${(new Date(booking.DateBooked)).getHours()}:${(new Date(booking.DateBooked)).getMinutes()}`} 
                             >
                             <div className="card">
                                <div className="name">
@@ -58,18 +58,18 @@ export default function MyBookings() {
                                Saleperson: {booking.Salesperson}
                                </div>
                                <div className="name">
-                                Vehicle: {booking.VehicleMake} {booking.VehicleModel} {booking.VehicleYear} £{booking.VehiclePrice}
+                                Vehicle: {booking.VehicleMake} {booking.VehicleModel} {booking.VehicleYear} £{booking.VehiclePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                                 </div>
                             </div>
                             </Panel>
                             )  
             }
             <div  className="button">
-                <Button color='rgb(58, 110, 165)' iconName={<FaPlus/>} text='Add' onClick={handleAdd} ></Button>
+                <Button color='rgb(58, 110, 165)' iconName={<FaPlus/>} text='Add' onClick={toggleAddForm} ></Button>
             </div>
             <div className="form-container">
                 {
-                    showNewBookingForm && <BookingForm onDismiss={handleDismissAdd} onSubmit={handleSubmit}/> 
+                    showAddBookingForm && <BookingForm onCancel={cancelAddForm} onSubmit={handleAddSubmit}/> 
                 }
             </div>
         </section>

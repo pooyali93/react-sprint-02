@@ -29,10 +29,6 @@ export default function Form({ children, onSubmit, onCancel }) {
 }
 
 function Item({children, label, htmlFor, advice,error}) {
-    // Properties ---------
-    // States ---------
-    // Context ---------
-    // Methods ---------
     // View ---------
   return (
     <div className="FormItem">
@@ -50,26 +46,45 @@ function Item({children, label, htmlFor, advice,error}) {
   );
 }
 
-function useForm(initialRecord, {isValid, errorMessage}) {
-  // Properties ---------
-  // States ---------
+function useForm(initialRecord, {isValid, errorMessage}, onSubmit,onCancel) {
+  //  Initialisation --------------
+  //  States ----------------------
   const [record, setRecord] = useState(initialRecord);
   const [errors, setErrors] = useState(
     Object.keys(initialRecord).reduce((accum, key) => ({...accum, [key]: null}),{})
   );
-  // Context ---------
-  // Methods ---------
+
+  // Context ---------------------
+  // Methods ---------------------
   const handleChange = (event) => {
     const { name, value } = event.target;
     const newValue = value ;
-    setErrors({ ...record, [name]: newValue});
+    console.log(newValue, "this is my new value")
+    setRecord({ ...record, [name]: newValue});
     setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]}); //118 :
   };
+
+  const isValidRecord = (record) => {
+    let isRecordValid = true;
+    Object.keys(record).forEach((key) => {
+      if(isValid[key](record[key])) {
+        errors[key] = null;
+
+      } else {
+        errors[key] = errorMessage[key];
+        isRecordValid = false;
+      }
+    });
+    return isRecordValid;
+  }
+
+  const handleSubmit = () => {
+    isValidRecord(record) && onSubmit(record) && onCancel(); 
+    setErrors({...errors});
+  }
   // View ---------
-return [record, errors, setErrors, handleChange];
+return [record, errors, handleChange, handleSubmit];
 }
-
-
 
 //  Compose  Form Object --------
 Form.Item = Item;
