@@ -1,4 +1,3 @@
-import Panel from "../UI/Panel";
 
    export default function Login() {
         // Initialisation ---------
@@ -10,9 +9,6 @@ import Panel from "../UI/Panel";
     
             <section>
                 <h1>Login</h1>
-
-
-                <Panel></Panel>
             </section>
         )
     
