@@ -1,0 +1,23 @@
+.btn {
+  display: inline-block;
+  background-color: var(rgb(40, 40, 66));
+  color: var(rgb(235, 235, 235));
+  border: none;
+  padding: 10px 40px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+.btn .btn:focus {
+  outline: none;
+}
+.btn .btn:active {
+  transform: scale(0.98);
+}
+.btn .btn-block {
+  display: block;
+  width: 100%;
+}/*# sourceMappingURL=Button.css.map */

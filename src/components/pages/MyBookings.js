@@ -47,7 +47,7 @@ export default function MyBookings() {
                         : bookings.map((booking) =>
                             <Panel 
                                 key={booking.BookingId} 
-                                title={`${booking.BookingId} ${(new Date(booking.DateBooked)).toLocaleDateString()} ${(new Date(booking.DateBooked)).getHours()}:${(new Date(booking.DateBooked)).getMinutes()}`} 
+                                title={`${booking.BookingId} ${(new Date(booking.DateBooked)).toLocaleDateString(undefined, options)}`} 
                             >
                             <div className="card">
                                <div className="name">

@@ -1,0 +1,64 @@
+.aside {
+    grid-area: aside; 
+    background-color: #1D3557;
+}
+nav {
+    overflow: hidden;
+
+
+}
+
+nav div.profile {
+    padding: 2rem;
+    margin-bottom: 40px;
+    img.circular--square { 
+        width: 100px;
+        height: 100px;
+        margin: 5px 30px;
+        border-radius: 50%; 
+    }
+    p {
+        font-size: 1.4rem;
+        color: #fff;
+    }
+}
+
+nav div.navItem {
+    padding: 15px 50px;
+    border-bottom: 1px solid #051d3e;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+
+}
+
+
+nav div.navItem:hover {
+    background:  #051d3e;
+}
+
+nav div.navItem a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav div.navItem .navSelected:active {
+    color:#A8DADC;
+    padding: 10px;
+
+    
+}
+
+
+.nav-responsive {
+    @media (min-width: 800px) {
+     
+    }
+    
+    @media (min-width: 630px) {
+        
+ 
+    }
+    
+  }

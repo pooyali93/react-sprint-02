@@ -1,35 +1,43 @@
-header {
-    color: white;
-    background: #457B9D;
-    display: flex;
+.header {
+  grid-area: header;
+  min-height: 2rem;
+  /* color: white;
+  background: #457B9D;
+  display: flex;
+  padding: 0 2.5rem 0 0;
+  justify-content: right;
+  width: 65%;
+  position: absolute;
+  right: 78px;
+  top: 0; */
 }
 
-header a {
-    text-decoration: none;
+.header a {
+  text-decoration: none;
 }
 
-header a img {
-    filter: invert(1);
-    padding: 20px 0 0 30px;
+.header a img {
+  filter: invert(1);
+  padding: 20px 0 0 30px;
 }
 
-header > a > h1 {
-    color: white;
-    margin-left: 10px;
-    font-size: 200%;
-    padding:5px 0;
+.header > a > h1 {
+  color: white;
+  margin-left: 10px;
+  font-size: 200%;
+  padding: 5px 0;
 }
 
-header a:hover,
-header a:active {
-    color: #aa63da;
+.header a:hover,
+.header a:active {
+  color: #aa63da;
 }
 
-header div.login {
-    flex: 1;
-    margin-right: 0.5rem;
-    text-align: right;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
+.header div.login {
+  flex: 1;
+  margin-right: 0.5rem;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}/*# sourceMappingURL=Header.css.map */

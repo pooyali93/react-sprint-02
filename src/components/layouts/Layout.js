@@ -1,9 +1,7 @@
-
 import Navbar from './Navbar.js';
-import Footer from './Footer.js';
 import Header from './Header.js';
 
-import './Layout.css';
+import './Layout.scss';
 
 
 function Layout(props) {
@@ -14,12 +12,14 @@ function Layout(props) {
     // View ---------
     return (
         <div className='container'>
-          <Header />
-          <Navbar />
-            <main className='main-layout'>
-                {props.children}
-            </main>
-            <Footer/>
+            <div class="grid grid-responsive custom-scroll">
+                <div class="card header"><Header /></div>
+                <div class="aside"><Navbar /></div>
+                <div class="card main"><main className='main-layout'>
+                        {props.children}
+                    </main>
+                </div>
+            </div>
         </div>
     );
 
