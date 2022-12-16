@@ -17,6 +17,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+
 }
 
 .card {
@@ -40,24 +41,34 @@
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
   background: #fff;
-  padding: 0;
+  padding:0;
   margin: -6px 0 10px 0px;
 }
 
 .content.show {
   height: auto;
   background: red;
-  max-height: 9999px;
+  max-height:9999px ;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
 }
 
-@media screen and (min-width: 1024px) {
-  .title h2 {
-    font-size: 16px;
+
+  @media screen and (min-width: 768px) {
+   
   }
-}
-@media screen and (min-width: 1224px) {
-  .title h2 {
-    font-size: 18px;
+  
+  @media screen and (min-width: 1024px) {
+    .title h2 {
+      font-size: 16px;
+    }
+      
+
   }
-}/*# sourceMappingURL=Panel.css.map */
+
+  @media screen and (min-width: 1224px) {
+    .title h2 {
+      font-size: 18px;
+    }     
+
+  }
+  

@@ -120,23 +120,7 @@ export default function BookingForm({onSubmit,onCancel, initialBooking=emptyBook
             value={booking.DateBooked}
             onChange={handleChange}
         />
-      </Form.Item>
-
-      <Form.Item
-        label ="Vehicle"
-        htmlFor="VehicleId"
-        advice="Please Enter Date of booking"
-        error={errors.VehicleId}
-      >
-        <input 
-            type="text"
-            name="VehicleId"
-            value={booking.VehicleId}
-            onChange={handleChange}
-        />
-      </Form.Item>
-
-      
+      </Form.Item>     
     </Form>
   )
 }

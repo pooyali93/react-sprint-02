@@ -1,3 +1,7 @@
+section {
+  width: 100%;
+  display: grid;
+}
 section .button {
   display: flex;
   justify-content: center;
@@ -10,9 +14,6 @@ section .form-container {
 }
 section .form-container p {
   padding: 0;
-}
-section .card {
-  position: absolute;
 }
 section .card .name {
   width: 100%;

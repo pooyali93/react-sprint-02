@@ -38,7 +38,7 @@ export default function MyBookings() {
     // View ---------
     return (
         <section>
-            <h1>My Bookings</h1>
+            
             {
                 !bookings
                     ? <p>{loadingMessage}</p>
@@ -47,7 +47,7 @@ export default function MyBookings() {
                         : bookings.map((booking) =>
                             <Panel 
                                 key={booking.BookingId} 
-                                title={`${booking.BookingId} ${(new Date(booking.DateBooked)).toLocaleDateString(undefined, options)}`} 
+                                title={`${(new Date(booking.DateBooked)).toLocaleDateString(undefined, options)}`} 
                             >
                             <div className="card">
                                <div className="name">

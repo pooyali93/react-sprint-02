@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import './Panel.css';
+import './Panel.scss';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function Panel({children, title, opacity}) {

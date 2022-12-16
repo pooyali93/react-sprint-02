@@ -1,16 +1,10 @@
 .header {
     grid-area: header;
-    min-height: 2rem;
-    
-    /* color: white;
-    background: #457B9D;
-    display: flex;
-    padding: 0 2.5rem 0 0;
-    justify-content: right;
-    width: 65%;
-    position: absolute;
-    right: 78px;
-    top: 0; */
+    padding: 2rem;
+    border: 1px solid #cdcdcd;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .header a {

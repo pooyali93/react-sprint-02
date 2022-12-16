@@ -1,3 +1,4 @@
+import Table from "../UI/Table";
 
    export default function Users() {
     // Initialisation ---------
@@ -7,9 +8,8 @@
     // View ---------
     return (
 
-        <section>
-            <h1>Users</h1>
-        </section>
+            <Table/>
+
     )
 
 }

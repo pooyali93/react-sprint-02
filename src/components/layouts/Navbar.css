@@ -38,9 +38,4 @@ nav div.navItem a {
   color: #fff;
   text-decoration: none;
   font-size: 18px;
-}
-
-nav div.navItem .navSelected:active {
-  color: #A8DADC;
-  padding: 10px;
 }/*# sourceMappingURL=Navbar.css.map */
