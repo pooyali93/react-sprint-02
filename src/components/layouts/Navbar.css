@@ -6,20 +6,8 @@
 nav {
   overflow: hidden;
 }
-
-nav div.profile {
-  padding: 2rem;
-  margin-bottom: 40px;
-}
-nav div.profile img.circular--square {
-  width: 100px;
-  height: 100px;
-  margin: 5px 30px;
-  border-radius: 50%;
-}
-nav div.profile p {
-  font-size: 1.4rem;
-  color: #fff;
+nav .profile {
+  display: none;
 }
 
 nav div.navItem {
@@ -28,6 +16,7 @@ nav div.navItem {
   border-radius: 0.2rem;
   font-size: 1rem;
   font-weight: bold;
+  text-align: center;
 }
 
 nav div.navItem:hover {
@@ -38,4 +27,22 @@ nav div.navItem a {
   color: #fff;
   text-decoration: none;
   font-size: 18px;
+}
+
+@media screen and (min-width: 768px) {
+  nav div.profile {
+    display: block;
+    padding: 2rem;
+    margin-bottom: 40px;
+  }
+  nav div.profile img.circular--square {
+    width: 100px;
+    height: 100px;
+    margin: 5px 30px;
+    border-radius: 50%;
+  }
+  nav div.profile p {
+    font-size: 1.4rem;
+    color: #fff;
+  }
 }/*# sourceMappingURL=Navbar.css.map */

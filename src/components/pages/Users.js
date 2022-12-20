@@ -7,9 +7,11 @@ import Table from "../UI/Table";
     // Methods ---------
     // View ---------
     return (
+        <section>
+        <h2>User</h2>
 
-            <Table/>
-
+          {/* <Table/> */}
+        </section>
     )
 
 }

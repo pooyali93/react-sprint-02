@@ -11,7 +11,7 @@ export default function Navbar() {
     const getLinkStyle = (isActive) => (isActive ? 'navSelected' : null);
     // View ---------
     return (
-        <nav className="nav-responsive">
+        <nav>
             <div className="profile">
                 <img class="circular--square" src="https://media-exp1.licdn.com/dms/image/D4E03AQHHtYavs893cw/profile-displayphoto-shrink_400_400/0/1666556734597?e=1676505600&v=beta&t=g_RCsj19xhm5G_YpnRo5CsPjVcdJnBeJmommFo6ygYo" alt="Profile"/>
                 <p>Welcome Pooya</p>

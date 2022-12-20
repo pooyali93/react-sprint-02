@@ -42,11 +42,8 @@ html {
  .container {
   width: 98%;
   height: 100vh;
-  padding: .5rem;
-  background: whitesmoke;
+  padding: 1rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
  .grid {
@@ -57,6 +54,7 @@ html {
     overflow-y: scroll;
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: max-content;
     grid-template-areas: 
     "header"
     "aside"
@@ -67,7 +65,8 @@ html {
  
 
   .main {
-    width: 100.8%;
+    grid-area: main;
+    width: 100%;
     padding: 1rem;
     border: 1px solid #cdcdcd;
     font-size: 1.4rem;
@@ -85,6 +84,8 @@ div#root div.container > main.main-layout section > .container{
 
 .grid-responsive {
     @media (min-width: 768px) {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto 1fr;
       grid-template-areas: 
         "aside header header"
         "aside main main"
@@ -93,7 +94,7 @@ div#root div.container > main.main-layout section > .container{
     
     @media (min-width: 1024px) {
       grid-template-columns: 200px 1fr;
-      grid-template-rows: auto auto 1fr;
+      grid-template-rows: auto 1fr;
       grid-template-areas: 
         "aside header header"
         "aside main main"

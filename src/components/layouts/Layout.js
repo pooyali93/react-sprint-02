@@ -12,10 +12,10 @@ function Layout(props) {
     // View ---------
     return (
         <div className='container'>
-            <div class="grid grid-responsive custom-scroll">
-                <div class="card header"><Header /></div>
+            <div class="grid grid-responsive ">
+                <div class=" header"><Header /></div>
                 <div class="aside"><Navbar /></div>
-                <div class="card main"><main className='main-layout'>
+                <div class=" main"><main className='main-layout'>
                         {props.children}
                     </main>
                 </div>

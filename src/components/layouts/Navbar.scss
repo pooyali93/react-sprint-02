@@ -5,23 +5,16 @@
 nav {
     overflow: hidden;
 
+    .profile {
+        display: none;
+    }
+   
+
 
 }
 
-nav div.profile {
-    padding: 2rem;
-    margin-bottom: 40px;
-    img.circular--square { 
-        width: 100px;
-        height: 100px;
-        margin: 5px 30px;
-        border-radius: 50%; 
-    }
-    p {
-        font-size: 1.4rem;
-        color: #fff;
-    }
-}
+
+
 
 nav div.navItem {
     padding: 15px 50px;
@@ -29,6 +22,7 @@ nav div.navItem {
     border-radius: 0.2rem;
     font-size: 1rem;
     font-weight: bold;
+    text-align: center;
 
 }
 
@@ -44,16 +38,35 @@ nav div.navItem a {
 }
 
 
+@media screen and (min-width: 768px) {
+    nav div.profile {
+        display: block;
+        padding: 2rem;
+        margin-bottom: 40px;
+        img.circular--square { 
 
+            width: 100px;
+            height: 100px;
+            margin: 5px 30px;
+            border-radius: 50%; 
+        }
+        p {
+            font-size: 1.4rem;
+            color: #fff;
+        }
+    }
+   
+}
 
-.nav-responsive {
-    @media (min-width: 800px) {
+@media screen and (min-width: 1024px) {
+
+    
+
+}
+
+@media screen and (min-width: 1224px) {
      
-    }
-    
-    @media (min-width: 630px) {
-        
- 
-    }
-    
-  }
+
+}
+
+
